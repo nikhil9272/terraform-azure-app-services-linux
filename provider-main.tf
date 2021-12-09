@@ -1,15 +1,12 @@
-###########################
-## Azure Provider - Main ##
-###########################
-
-# Define Terraform provider
-terraform {
-  required_version = ">= 0.12"
+provider "azurerm" {
+  features {}
 }
 
-# Configure the Azure provider
-provider "azurerm" {
-  environment = "public"
-  version     = ">= 2.15.0"
-  features {}
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.84.0"
+    }
+  }
 }

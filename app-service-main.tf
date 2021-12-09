@@ -1,10 +1,7 @@
-##############################
-## Azure App Service - Main ##
-##############################
 
 # Create a Resource Group
 resource "azurerm_resource_group" "appservice-rg" {
-  name     = "kopi-${var.region}-${var.environment}-${var.app_name}-app-service-rg"
+  name     = "asprg"
   location = var.location
 
   tags = {
@@ -16,7 +13,7 @@ resource "azurerm_resource_group" "appservice-rg" {
 
 # Create the App Service Plan
 resource "azurerm_app_service_plan" "service-plan" {
-  name                = "kopi-${var.region}-${var.environment}-${var.app_name}-service-plan"
+  name                = "asp-service-plan"
   location            = azurerm_resource_group.appservice-rg.location
   resource_group_name = azurerm_resource_group.appservice-rg.name
   kind                = "Linux"
@@ -36,13 +33,26 @@ resource "azurerm_app_service_plan" "service-plan" {
 
 # Create the App Service
 resource "azurerm_app_service" "app-service" {
-  name                = "kopi-${var.region}-${var.environment}-${var.app_name}-app-service"
+  name                = var.hostname
   location            = azurerm_resource_group.appservice-rg.location
   resource_group_name = azurerm_resource_group.appservice-rg.name
   app_service_plan_id = azurerm_app_service_plan.service-plan.id
+  https_only          = true
 
   site_config {
+    always_on        = true
+    min_tls_version  = 1.2
+    #ftps_state       = "FtpsOnly"
     linux_fx_version = "DOTNETCORE|3.1"
+  }
+
+  backup {
+    name                 = var.backupname
+    storage_account_url  = "https://${azurerm_storage_account.storage_name.name}.blob.core.windows.net/${var.container_name}${data.azurerm_storage_account_sas.sas_key.sas}&sr=b"
+    schedule {
+      frequency_interval = 1
+      frequency_unit     = "Day"
+    }
   }
 
   tags = {
