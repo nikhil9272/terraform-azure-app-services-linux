@@ -2,10 +2,11 @@
 
 resource "azurerm_storage_account" "storage_name" {
   name                     = var.storageaccount_name
-  resource_group_name      = azurerm_resource_group.appservice-rg.name
-  location                 = azurerm_resource_group.appservice-rg.location
+  resource_group_name      = azurerm_resource_group.Resource-Group.name
+  location                 = azurerm_resource_group.Resource-Group.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  min_tls_version          = "TLS1_2"
 
   tags = {
     Billing    = var.billing

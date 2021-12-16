@@ -1,30 +1,19 @@
+rgname               = "RG-bdc-Untrusted-aestheticdentallab-prd"
+asp_name             = "ASP-bdc-aestheticdentallab-prd"
+webapp_name          = "WAPP-bdc-aestheticdentallab-prd"
+location             = "UK West" #"North Europe"
 
-location    = "UK West"
-company     = "aspp"
-environment = "dev"
-owner       = "nikhil"
-description = "Linux App Service with .NET Core"
-region      = "ne"
-app_name    = "test"
-
-
-/*name                 = "eurodontic"
-rgname               = "Eurodontic"
-hostname             = "prod-asp-eurodonticuk"
 appservice_plan_tier = "Standard"
 appservice_plan_size = "S1"
-wordpress_image      = "DOCKER|wordpress"*/
-hostname             = "prod-asp-aspdemo"
-
 
 ################ Storage Account ################
 
-storageaccount_name  = "storage9272727"
-backupname           = "backup"
-container_name       = "container"
+storageaccount_name  = "sabdceunaestheticprd01"
+backupname           = "aestheticdentallab_backup"
+container_name       = "azbackup"
 
 ############## Tags ######################
 
 billing              = "F40616"
-it_service           = "eurodontic"
-tags_env             = "Production"
+it_service           = "BDC Websites aestheticdentallab"
+tags_env             = "PRD"
